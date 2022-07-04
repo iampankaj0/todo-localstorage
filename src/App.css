@@ -1,38 +1,125 @@
 .App {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  height: calc(100vh - 40px);
+}
+
+.App .heading {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App .heading>img {
+  display: block;
+  margin: 0 auto;
+  width: 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App .heading>h1 {
+  font-size: 30px;
+  color: #3eebe5;
+  font-weight: 700;
+  text-shadow: 0px 5px 7px #000;
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.data-form {
+  position: relative;
+}
+
+.data-form input {
+  height: 30px;
+  width: 97%;
+  font-size: 16px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border-color: #3eebe5;
+}
+
+.data-form input:focus {
+  border-color: green;
+  outline: none;
+}
+
+.data-form .deskbtn {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  height: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: green;
+  font-size: 25px;
+}
+
+.data-form .mobile-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff;
+  background-color: green;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 14px;
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translate(-50%, -50%);
 }
 
-.App-link {
-  color: #61dafb;
+.data-form .mobile-btn>.icon {
+  margin-right: 5px;
+  font-size: 18px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.list-data ol {
+  margin-left: 20px;
+  padding: 0;
+}
+
+.list-data ol li {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  padding: 5px;
+  border-bottom: 1px solid #000;
+}
+
+.list-data ol li:nth-child(odd){
+  background-color: #d8d88d;
+}
+
+.list-data ol li button{
+  background-color: transparent;
+  color: red;
+  font-size: 18px;
+  border: none;
+}
+
+@media screen and (min-width: 575px) {
+  .data-form .mobile-btn {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (max-width: 574px) {
+  .App .heading>img {
+    width: 30px;
+  }
+
+  .App .heading>h1 {
+    font-size: 22px;
+    font-weight: 500;
+    text-shadow: 0px 4px 4px #000;
+  }
+
+  .data-form .deskbtn {
+    display: none;
+  }
+
+  .list-data{
+    margin-top: 60px;
   }
 }
