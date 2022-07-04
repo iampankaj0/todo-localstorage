@@ -29,6 +29,11 @@ const App = () => {
   const handleAdd = (e) => {
     e.preventDefault();
     setData((prevData) => [...prevData, { input: input }]);
+    if (!input) {
+      alert("Please fill out the field");
+    } else {
+      alert("Your data successfully added in list");
+    }
     setInput("");
   };
 
@@ -41,6 +46,7 @@ const App = () => {
     var newData = data;
     newData.splice(id, 1);
     setData([...newData]);
+    alert(`Index number ${id + 1} deleted`);
   };
 
   return (
