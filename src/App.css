@@ -23,6 +23,10 @@
   margin-bottom: 30px;
 }
 
+.App .heading>h1>span{
+  color: red;
+}
+
 .data-form {
   position: relative;
 }
@@ -114,6 +118,7 @@
     font-weight: 500;
     text-shadow: 0px 4px 4px #000;
   }
+
 
   .data-form .deskbtn {
     display: none;

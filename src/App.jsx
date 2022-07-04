@@ -49,12 +49,18 @@ const App = () => {
     alert(`Index number ${id + 1} deleted`);
   };
 
+  // TODAY DATE METHOD
+  const current = new Date();
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
+
   return (
     <div className="App">
       <div className="todo_list">
         <div className="heading">
           <img src={ListIcon} className="main_head-img" alt="List-icon" />
-          <h1>What will you do today?</h1>
+          <h1>What will you do on date {date} <span>?</span></h1>
         </div>
 
         {/* INPUT FORM START */}
