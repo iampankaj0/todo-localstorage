@@ -3,11 +3,11 @@ import "./App.css";
 import ListIcon from "./images/listicon.png";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 // GET DATA FROM LOCAL_STORAGE START
 const getLocalData = () => {
   let data = localStorage.getItem("List");
-  console.log(data);
 
   if (data) {
     return JSON.parse(localStorage.getItem("List"));
@@ -20,28 +20,44 @@ const getLocalData = () => {
 const App = () => {
   const [data, setData] = useState(getLocalData());
   const [input, setInput] = useState("");
+  const [myId, setMyId] = useState(data.length + 1);
+  const [isEditedItem, setIsEditedItem] = useState(null);
+  const [isEditedEnable, setIsEditedEnable] = useState(false);
 
   const updateInput = (e) => {
     setInput(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleAdd = (e) => {
     e.preventDefault();
-    setData((prevData) => [...prevData, { input: input }]);
     if (!input) {
       alert("Please fill out the field");
+    } else if (isEditedItem) {
+      setData(
+        data.map((item) => {
+          if (item.myId === isEditedItem.myId) {
+            return { ...item, input: input };
+          }
+          return item;
+        })
+      );
+      setIsEditedItem(null);
+      setIsEditedEnable(false);
+      window.location.reload(false);
     } else {
-      alert("Your data successfully added in list");
+      setData((prevData) => [...prevData, { input: input, myId: myId }]);
+      alert(`${input} successfully added in list`);
+      window.location.reload(false);
     }
     setInput("");
   };
 
   // ADD ALL DATA TO LOCAL_STORAGE
   useEffect(() => {
-    localStorage.setItem("List", JSON.stringify(data));
-  }, [data]);
+    localStorage.setItem("List", JSON.stringify(data, myId));
+  }, [data, myId]);
 
+  // DELETE SINGLE DATA
   const deleteData = (id) => {
     var newData = data;
     newData.splice(id, 1);
@@ -55,12 +71,24 @@ const App = () => {
     current.getMonth() + 1
   }/${current.getFullYear()}`;
 
+  const editData = (id) => {
+    let newEditData = data.find((item) => {
+      return item.myId === id;
+    });
+
+    setInput(newEditData.input);
+    setIsEditedItem(newEditData);
+    setIsEditedEnable(true);
+  };
+
   return (
     <div className="App">
       <div className="todo_list">
         <div className="heading">
           <img src={ListIcon} className="main_head-img" alt="List-icon" />
-          <h1>What will you do on date {date} <span>?</span></h1>
+          <h1>
+            What will you do on date {date} <span>?</span>
+          </h1>
         </div>
 
         {/* INPUT FORM START */}
@@ -72,25 +100,52 @@ const App = () => {
             type="text"
             placeholder="Type here..."
           />
-          <button className="deskbtn">
-            <IoMdAddCircleOutline />
-          </button>
-          <button className="mobile-btn">
-            <IoMdAddCircleOutline className="icon" /> Add
-          </button>
+          {isEditedEnable ? (
+            <>
+              <button className="deskbtn" style={{ color: "hotpink" }}>
+                <FiEdit />
+              </button>
+              <button
+                className="mobile-btn"
+                style={{ color: "blanchedalmond", background: "hotpink" }}
+              >
+                <FiEdit className="icon" /> Update
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="deskbtn">
+                <IoMdAddCircleOutline />
+              </button>
+              <button className="mobile-btn">
+                <IoMdAddCircleOutline className="icon" /> Add
+              </button>
+            </>
+          )}
         </form>
         {/* INPUT FORM ENDS */}
 
         {/* RENDERED DATA START */}
         <div className="list-data">
           <ol>
-            {data.map((todo, id) => {
+            {[...data].reverse().map((todo, id) => {
               return (
                 <li key={id}>
                   {todo.input}
-                  <button onClick={() => deleteData(id)}>
-                    <RiDeleteBin6Fill />
-                  </button>
+                  <div>
+                    <button
+                      className="edit_btn"
+                      onClick={() => editData(todo.myId)}
+                    >
+                      <FiEdit />
+                    </button>
+                    <button
+                      className="delete_btn"
+                      onClick={() => deleteData(id)}
+                    >
+                      <RiDeleteBin6Fill />
+                    </button>
+                  </div>
                 </li>
               );
             })}

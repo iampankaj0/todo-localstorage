@@ -1,8 +1,8 @@
 .App {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  height: calc(100vh - 40px);
+  margin: 40px 0;
+  height: calc(100vh - 80px);
 }
 
 .App .heading {
@@ -23,7 +23,7 @@
   margin-bottom: 30px;
 }
 
-.App .heading>h1>span{
+.App .heading>h1>span {
   color: red;
 }
 
@@ -48,7 +48,7 @@
 .data-form .deskbtn {
   position: absolute;
   top: 3px;
-  right: 0;
+  right: 5px;
   height: 100%;
   border: none;
   background: none;
@@ -91,15 +91,25 @@
   border-bottom: 1px solid #000;
 }
 
-.list-data ol li:nth-child(odd){
-  background-color: #d8d88d;
+.list-data ol li:nth-child(odd) {
+  /* background-color: #d8d88d; */
+  background-color: #3eebe5;
 }
 
-.list-data ol li button{
+.list-data ol li button.delete_btn {
   background-color: transparent;
   color: red;
   font-size: 18px;
   border: none;
+  cursor: pointer;
+}
+
+.list-data ol li button.edit_btn {
+  background-color: transparent;
+  color: yellowgreen;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 575px) {
@@ -124,13 +134,13 @@
     display: none;
   }
 
-  .list-data{
+  .list-data {
     margin-top: 60px;
   }
 }
 
 @media screen and (max-width: 388px) {
-  .App{
+  .App {
     padding: 0 15px;
   }
 }
